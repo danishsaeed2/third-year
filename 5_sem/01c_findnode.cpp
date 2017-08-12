@@ -1,3 +1,5 @@
+// To find the data of the node where two linked lists merge
+
 #include<iostream>
 using namespace std;
 

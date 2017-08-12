@@ -1,3 +1,5 @@
+// Djikstra's shortest path algorithm on adjacency matrix
+
 #include <iostream>
 using namespace std;
 
