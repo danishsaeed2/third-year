@@ -1,3 +1,5 @@
+// To swap adjacent nodes of a linked list
+
 #include<iostream>
 using namespace std;
 
