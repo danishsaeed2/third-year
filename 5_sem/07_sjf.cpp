@@ -1,3 +1,5 @@
+// Non pre-emptive and pre-emptive (faulty) Shortest Job First scheduling algorithm for CPU processes
+
 #include <iostream>
 #include <cstdlib>
 #include <vector>
