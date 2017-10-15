@@ -1,3 +1,5 @@
+// First Come First Serve scheduling algorithm for CPU processes
+
 #include<iostream>
 #include<algorithm>
 
@@ -140,7 +142,7 @@ int main (int argc, char const* argv[])
 	avgWaitTime=(float)temp/(float)n;
 	
 	//cout<<"\n\nAverage Waiting Time: "<<avgWaitTime;
-	
+	/*
 	float avgTurnTime;
 	temp=0;
 	for (int i =0; i < n-1; i += 1)
@@ -148,7 +150,7 @@ int main (int argc, char const* argv[])
 		temp=turnTime[i]+temp;
 	}
 	avgTurnTime=(float)temp/(float)n;
-	
+	*/
 	//cout<<"\n\nAverage Turnaround Time: "<<avgTurnTime;
 	
 	return 0;
