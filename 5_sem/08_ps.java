@@ -1,3 +1,6 @@
+// Algorithm for priority scheduling
+// rename filename to main class name
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
