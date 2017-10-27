@@ -193,11 +193,13 @@ public class ps
 			}
 		}
 		
+		/*
 		for(int i=0 ; i< finalQueue.size() ; i++)
 		{
 			finalQueue.get(i).setWait(finalQueue.get(i).getFinish()-finalQueue.get(i).getArrivalFix()-finalQueue.get(i).getBursts());
 			finalQueue.get(i).setTat(finalQueue.get(i).getFinish()-finalQueue.get(i).getArrivalFix());
 		}
+		*/
 		
 		printTable(finalQueue);
 		
@@ -230,23 +232,22 @@ public class ps
 				+myTempQueue.get(i).getTat()+"\t");
 		}
 		
-		/*
+		
 		int avgWait=0,avgTat=0;
 		for (int i = 0; i < myTempQueue.size(); i += 1)
 		{
-			avgWait=avgWait+myTempQueue[i].wait;
-			avgTat=avgTat+myTempQueue[i].tat;
+			avgWait=avgWait+myTempQueue.get(i).getWait();
+			avgTat=avgTat+myTempQueue.get(i).getTat();
 		}
 	
-		cout<<"Average Waiting Time = "<<(float)avgWait/(float)myTempQueue.size()<<endl;
-		cout<<"Average Turnaround Time = "<<(float)avgTat/(float)myTempQueue.size()<<endl;
-		*/
+		System.out.print("Average Waiting Time = "+(float)avgWait/(float)myTempQueue.size()+"\n");
+		System.out.print("Average Turnaround Time = "+(float)avgTat/(float)myTempQueue.size()+"\n");
 	}
 	
 	public static void NPEgantt (ArrayList <process> myQueue)
 	{
 		int i=0;
-		System.out.println();
+		System.out.print("\n");
 		for (i = 0; i < myQueue.size(); i += 1)
 		{
 			if (i!=0 && myQueue.get(i).getArrivalFix() > myQueue.get(i-1).getFinish() && myQueue.get(i).getWait()==0)
@@ -294,8 +295,8 @@ public class ps
 			}
 			System.out.print(myQueue.get(i).getFinish());
 		}
+		System.out.println();
 	}
-	System.out.println();
 }
 	
 class process
@@ -380,6 +381,17 @@ class processCompare implements Comparator<process>
 			else if (p1.priority < p2.priority)
 			{
 				return -1;
+			}
+			else
+			{
+				if(p1.arrivalFix > p2.arrivalFix)
+ 				{
+ 					return 1;
+ 				}
+ 				else if (p1.arrivalFix < p2.arrivalFix)
+ 				{
+ 					return -1;
+ 				}
 			}
 		}
 		return 0;
