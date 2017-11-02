@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.concurrent.*;
 
 public class dinerphil
 {
@@ -52,14 +51,14 @@ class philosopher extends Thread
 			while (!pickChopsticks() && time<totalTime)
 			{
 				waiting();
-				if (time>=totalTime)
+				if (time >= totalTime)
 				{
-					finishEat=1;
+					finishEat = 1;
 					break;
 				}
 			}
 
-			if (finishEat==1)
+			if (finishEat == 1)
 			{
 				System.out.print("\n"+time+" - Philosopher "+id+" has finished eating. Serves: "+serves);
 				return;
@@ -86,7 +85,7 @@ class philosopher extends Thread
 		{
 			sleep(eatingTime);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -100,7 +99,7 @@ class philosopher extends Thread
 		{
 			sleep(1);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -114,7 +113,7 @@ class philosopher extends Thread
 		{
 			sleep(thinkingTime);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -123,22 +122,21 @@ class philosopher extends Thread
 
 	public boolean pickChopsticks()
 	{
-			if (leftChop.isAvailable() && rightChop.isAvailable())
-			{
-				leftChop.use();
-				rightChop.use();
-
-				System.out.print("\n"+time+" - Philosopher "+id+" picks "+leftChop.id+" "+rightChop.id);
-				return true;
-			}
+		if (leftChop.isAvailable() && rightChop.isAvailable())
+		{
+			leftChop.use();
+			rightChop.use();
+			System.out.print("\n"+time+" - Philosopher "+id+" picks "+leftChop.id+" "+rightChop.id);
+			return true;
+		}
 		return false;
 	}
 
 	public void keepChopsticks()
 	{
-			leftChop.done();
-			rightChop.done();
-			System.out.print("\n"+time+" - Philosopher "+id+" releases "+leftChop.id+" "+rightChop.id);
+		leftChop.done();
+		rightChop.done();
+		System.out.print("\n"+time+" - Philosopher "+id+" releases "+leftChop.id+" "+rightChop.id);
 	}
 }
 
@@ -163,12 +161,10 @@ class chopstick
 		this.available = true;
 	}
 
-	public bool isAvailable()
+	public boolean isAvailable()
 	{
 		if (this.available==true)
-		{
 			return true;
-		}
 		return false;
 	}
 }
@@ -209,14 +205,12 @@ class solver
 			}
 		}
 
-		//Thread[] threads = new Thread[n];
-
-		for (int j=0 ; j<philosophers.length ; j++)
+		for (int j=0; j<philosophers.length ; j++)
 		{
 			philosophers[j].start();
 		}
 
-		for (int j=0 ; j<philosophers.length ; j++)
+		for (int j=0; j<philosophers.length ; j++)
 		{
 			try
 			{

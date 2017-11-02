@@ -1,3 +1,6 @@
+// Non pre-emptive and pre-emptive (faulty) Shortest Job First scheduling algorithm for CPU processes
+// Rename file to main class name
+
 import java.util.Collections;
 import java.util.ArrayList;
 import java.util.Comparator;
