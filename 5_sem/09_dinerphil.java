@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.concurrent.*;
 
 public class dinerphil
 {
@@ -17,62 +18,158 @@ public class dinerphil
 	}
 }
 
-class philosopher implements Runnable
+class philosopher extends Thread
 {
+	int finishEat=0;
 	int id;
 	int totalTime;
 	int eatingTime;
 	int thinkingTime;
 	int time;
+	int serves;
+	int waitTime;
+	chopstick leftChop;
+	chopstick rightChop;
 
-	public philosopher(int i, int total, int eat, int think)
+	public philosopher(int i, int total, int eat, int think, chopstick left, chopstick right )
 	{
 		this.id=i;
 		this.totalTime=total;
 		this.eatingTime=eat;
 		this.thinkingTime=think;
 		this.time=0;
+		this.serves=0;
+		this.waitTime=0;
+		leftChop=left;
+		rightChop=right;
 	}
 
 	public void run()
 	{
+		while (time <= totalTime)
+		{
+			thinking();
+			while (!pickChopsticks() && time<totalTime)
+			{
+				waiting();
+				if (time>=totalTime)
+				{
+					finishEat=1;
+					break;
+				}
+			}
 
+			if (finishEat==1)
+			{
+				System.out.print("\n"+time+" - Philosopher "+id+" has finished eating. Serves: "+serves);
+				return;
+			}
+
+			if (time>totalTime)
+			{
+				break;
+			}
+			else
+			{
+				eating();
+				keepChopsticks();
+			}
+		}
+
+		System.out.print("\n"+time+" - Philosopher "+id+" has finished eating. Serves: "+serves);
+		return;
 	}
 
 	public void eating()
 	{
-
+		try
+		{
+			sleep(eatingTime);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		time = time + eatingTime;
+		serves++;
 	}
 
 	public void waiting()
 	{
-
+		try
+		{
+			sleep(1);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		time++;
+		waitTime++;
 	}
 
 	public void thinking()
 	{
+		try
+		{
+			sleep(thinkingTime);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		time = time + thinkingTime;
+	}
 
+	public boolean pickChopsticks()
+	{
+			if (leftChop.isAvailable() && rightChop.isAvailable())
+			{
+				leftChop.use();
+				rightChop.use();
+
+				System.out.print("\n"+time+" - Philosopher "+id+" picks "+leftChop.id+" "+rightChop.id);
+				return true;
+			}
+		return false;
+	}
+
+	public void keepChopsticks()
+	{
+			leftChop.done();
+			rightChop.done();
+			System.out.print("\n"+time+" - Philosopher "+id+" releases "+leftChop.id+" "+rightChop.id);
 	}
 }
 
 class chopstick
 {
-	public boolean available;
+	private boolean available;
 	public int id;
 
 	public chopstick(int x)
 	{
 		this.id=x;
+		this.available=true;
 	}
 
-	public synchronized void use()
+	public void use()
 	{
 		this.available = false;
 	}
 
-	public synchronized void done()
+	public void done()
 	{
 		this.available = true;
+	}
+
+	public bool isAvailable()
+	{
+		if (this.available==true)
+		{
+			return true;
+		}
+		return false;
 	}
 }
 
@@ -94,36 +191,41 @@ class solver
 
 		for (int i=0; i<philosophers.length ; i++)
 		{
-			System.out.print("Philosopher ID: " + i);
-			System.out.print("Total Time: ");
+			System.out.print("\nPhilosopher ID: " + i);
+			System.out.print("\nTotal Time: ");
 			int ttime = scan.nextInt();
 			System.out.print("Eating Time: ");
 			int etime = scan.nextInt();
 			System.out.print("Thinking Time: ");
 			int thtime = scan.nextInt();
 
-			philosophers[i] = new philosopher(i,ttime,etime,thtime);
+			if (i == (philosophers.length)-1)
+			{
+				philosophers[i] = new philosopher(i,ttime,etime,thtime,chopsticks[i],chopsticks[0]);
+			}
+			else
+			{
+				philosophers[i] = new philosopher(i,ttime,etime,thtime,chopsticks[i],chopsticks[i+1]);
+			}
+		}
+
+		//Thread[] threads = new Thread[n];
+
+		for (int j=0 ; j<philosophers.length ; j++)
+		{
+			philosophers[j].start();
+		}
+
+		for (int j=0 ; j<philosophers.length ; j++)
+		{
+			try
+			{
+				philosophers[j].join();
+			}
+			catch (InterruptedException e)
+			{
+		        e.printStackTrace();
+		    }
 		}
 	}
 }
-
-
-/*
-int getId()
-{return id;}
-int getTot()
-{return totalTime;}
-int getEat()
-{return eatingTime;}
-int getThink()
-{return thinkingTime;}
-
-void setId (int x)
-{id=x;}
-void setTot (int x)
-{totalTime=x;}
-void setEat (int x)
-{eatingTime=x;}
-void setThink (int x)
-{thinkingTime=x;}
-*/
