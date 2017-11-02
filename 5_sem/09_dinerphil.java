@@ -1,3 +1,6 @@
+// Dining philosophers problem
+// Rename file to main class name
+
 import java.util.Scanner;
 
 public class dinerphil
