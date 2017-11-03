@@ -1,6 +1,3 @@
-// Dining philosophers problem
-// Rename file to main class name
-
 import java.util.Scanner;
 
 public class dinerphil
@@ -16,6 +13,7 @@ public class dinerphil
 		solver mySolver = new solver();
 		mySolver.solve(n);
 
+		System.out.println();
 		System.exit(0);
 	}
 }
@@ -63,11 +61,11 @@ class philosopher extends Thread
 
 			if (finishEat == 1)
 			{
-				System.out.print("\n"+time+" - Philosopher "+id+" has finished eating. Serves: "+serves);
+				System.out.print("\n"+time+" - - - Philosopher "+id+" has finished eating. Serves: "+serves);
 				return;
 			}
 
-			if (time>totalTime)
+			if (time > totalTime)
 			{
 				break;
 			}
@@ -78,7 +76,7 @@ class philosopher extends Thread
 			}
 		}
 
-		System.out.print("\n"+time+" - Philosopher "+id+" has finished eating. Serves: "+serves);
+		System.out.print("\n"+time+" - - - Philosopher "+id+" has finished eating. Serves: "+serves);
 		return;
 	}
 
@@ -129,7 +127,7 @@ class philosopher extends Thread
 		{
 			leftChop.use();
 			rightChop.use();
-			System.out.print("\n"+time+" - Philosopher "+id+" picks "+leftChop.id+" "+rightChop.id);
+			System.out.print("\n"+time+" - p - Philosopher "+id+" picks "+leftChop.id+" "+rightChop.id);
 			return true;
 		}
 		return false;
@@ -139,7 +137,7 @@ class philosopher extends Thread
 	{
 		leftChop.done();
 		rightChop.done();
-		System.out.print("\n"+time+" - Philosopher "+id+" releases "+leftChop.id+" "+rightChop.id);
+		System.out.print("\n"+time+" - r - Philosopher "+id+" releases "+leftChop.id+" "+rightChop.id);
 	}
 }
 
