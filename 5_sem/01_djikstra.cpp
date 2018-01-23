@@ -87,7 +87,7 @@ int main()
 				if (weight<=0)
 				{
 					cout<<"\n! ERROR: Weight can't be less than or equal to 0\n";
-					cout<<"Ending Node: ";
+					cout<<"Edge Weight: ";
 					cin>>dest;
 				}
 				else
