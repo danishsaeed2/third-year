@@ -8,7 +8,8 @@ struct edge
 	int dest;
 };
 
-void allSpanningTrees();
+int count=1;
+
 void allSubsets(vector<edge> tempEdge, vector<edge> spanEdges, int n, int ix, int i);
 void constructGraph(int n, vector<edge> spanEdges);
 void printGraph(vector<vector<int> > tempMatrix);
@@ -21,16 +22,16 @@ int main(int argc, char const *argv[])
 	vector<vector<int> > adjMatrix(n);	
 	
 	adjMatrix[0].push_back(1);
-	//adjMatrix[0].push_back(2);
+	adjMatrix[0].push_back(2);
 	adjMatrix[0].push_back(3);
 	adjMatrix[1].push_back(0);
 	adjMatrix[1].push_back(2);
-	//adjMatrix[1].push_back(3);
-	//adjMatrix[2].push_back(0);
+	adjMatrix[1].push_back(3);
+	adjMatrix[2].push_back(0);
 	adjMatrix[2].push_back(1);
 	adjMatrix[2].push_back(3);
 	adjMatrix[3].push_back(0);
-	//adjMatrix[3].push_back(1);
+	adjMatrix[3].push_back(1);
 	adjMatrix[3].push_back(2);
 
 	printGraph(adjMatrix);
@@ -39,13 +40,16 @@ int main(int argc, char const *argv[])
 
 	for (int i = 0; i < adjMatrix.size(); i++)
 	{
-		for (int j = 0; j < adjMatrix[i].size(); ++j)
+		for (int j = 0; j < adjMatrix[i].size(); j++)
 		{
-			edge temp;
-			temp.src=i;
-			temp.dest=adjMatrix[i][j];
+			if (i<adjMatrix[i][j])
+			{
+				edge temp;
+				temp.src=i;
+				temp.dest=adjMatrix[i][j];
 
-			edges.push_back(temp);
+				edges.push_back(temp);
+			}
 		}
 	}
 
@@ -154,7 +158,8 @@ void constructGraph(int n, vector<edge> spanEdges)
 
 	if (cycleCheck(tempMatrix))
 	{
-		cout<<"\nNOT CYCLIC";
+		cout<<"\n"<<count;
+		count++;
 		printGraph(tempMatrix);
 	}
 }
