@@ -1,3 +1,5 @@
+// Find all spanning trees of a given completely connected graph
+
 #include <iostream>
 #include <vector>
 using namespace std;
