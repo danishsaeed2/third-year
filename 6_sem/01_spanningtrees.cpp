@@ -18,21 +18,73 @@ bool cycleWork(int r, vector<vector<int> > tempMatrix, int p, vector<bool> check
 
 int main(int argc, char const *argv[])
 {
-	int n=4;
-	vector<vector<int> > adjMatrix(n);	
+	int n;
+	char cont,edCont;
+
+	cout<<"\n# Enter number of nodes: ";
+	cin>>n;
 	
-	adjMatrix[0].push_back(1);
-	adjMatrix[0].push_back(2);
-	adjMatrix[0].push_back(3);
-	adjMatrix[1].push_back(0);
-	adjMatrix[1].push_back(2);
-	adjMatrix[1].push_back(3);
-	adjMatrix[2].push_back(0);
-	adjMatrix[2].push_back(1);
-	adjMatrix[2].push_back(3);
-	adjMatrix[3].push_back(0);
-	adjMatrix[3].push_back(1);
-	adjMatrix[3].push_back(2);
+	while(1)
+	{
+		if (n<=0)
+		{
+			cout<<"\n! ERROR: Value can't be less than or equal to zero";
+			cout<<"\n# Enter number of nodes: ";
+			cin>>n;
+		}
+		else
+			break;
+	}
+
+	vector<vector<int> > adjMatrix(n);
+
+	cout<<"\n# Create edge? ";
+	cin>>cont;
+	cout<<endl;
+	
+	int sour,dest;
+
+	if (cont=='y'||cont=='Y')
+	{		
+		do
+		{	
+			cout<<"#\n";	
+			cout<<"Source Node: ";
+			cin>>sour;
+			while(1)
+			{
+				if (sour<0||sour>=n)
+				{
+					cout<<"\n! ERROR: Value should be between 0 and "<<n<<"\n";
+					cout<<"Source Node: ";
+					cin>>sour;
+				}
+				else
+					break;
+			}
+			cout<<"Destination Node: ";
+			cin>>dest;
+			while(1)
+			{
+				if (dest<0||dest>=n)
+				{
+					cout<<"\n! ERROR: Value should be between 0 and "<<n<<"\n";
+					cout<<"Destination Node: ";
+					cin>>dest;
+				}
+				else
+					break;
+			}
+			
+			adjMatrix[sour].push_back(dest);
+			adjMatrix[dest].push_back(sour);
+			
+			cout<<"\n# Another edge? ";
+			cin>>edCont;
+			cout<<"\n";
+			
+		} while (edCont=='y'||edCont=='Y');
+	}
 
 	printGraph(adjMatrix);
 
