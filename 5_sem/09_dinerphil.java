@@ -57,15 +57,9 @@ class philosopher extends Thread
 				waiting();
 				if (time >= totalTime)
 				{
-					finishEat = 1;
-					break;
+					System.out.print("\n"+time+" - - - Philosopher "+id+" has finished eating. Serves: "+serves);
+					return;
 				}
-			}
-
-			if (finishEat == 1)
-			{
-				System.out.print("\n"+time+" - - - Philosopher "+id+" has finished eating. Serves: "+serves);
-				return;
 			}
 
 			if (time > totalTime)
