@@ -1,3 +1,5 @@
+// Diner philosopher's problem using processes and semaphores
+
 #include <stdio.h>
 #include <cstdlib>
 #include <iostream>
@@ -270,7 +272,6 @@ int main()
 					}
 				}
 			}
-
 		}
 
 		exit(0);
