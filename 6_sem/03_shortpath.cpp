@@ -165,7 +165,7 @@ void * shortPath(void * th)
 	sour1 = myThread * n/nth;
 	sour2 = (myThread+1) * n/nth;
 
-	//cout<<"Thread: "<<myThread<<" Sour1: "<<sour1<<" Sour2: "<<sour2<<endl;
+	cout<<"Thread: "<<myThread<<" starts for range from node: "<<sour1<<" to node: "<<sour2-1<<endl;
 
 	for (int k = 0; k < n; k++)
 	{
@@ -181,4 +181,6 @@ void * shortPath(void * th)
 			}
 		}
 	}
+
+	cout<<"Thread: "<<myThread<<" completes."<<endl;
 }
