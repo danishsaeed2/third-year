@@ -1,3 +1,5 @@
+// To convert given NFA to DFA. Outputs redundant states too
+
 #include <iostream>
 #include <cstdlib>
 #include <fstream>
