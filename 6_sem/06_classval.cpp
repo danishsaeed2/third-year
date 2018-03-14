@@ -1,3 +1,6 @@
+// Having a struct linked list with a class and it's value, print new linked lists
+// of each class by manipulating pointers
+
 #include <iostream>
 #include <string>
 #include <vector>
