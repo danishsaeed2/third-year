@@ -168,7 +168,7 @@ bool cycleWork(int r, vector<vector<int> > tempMatrix, int p, vector<bool> check
 				return true;
 			}
 		}
-		else if (tempMatrix[r][i] != r)
+		else if (tempMatrix[r][i] != p)
 			return true;
 	}
 	return false;

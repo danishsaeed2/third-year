@@ -1,0 +1,3 @@
+CREATE TRIGGER man_email AFTER INSERT ON employees FOR EACH ROW INSERT INTO dept_email (dept_id, email) VALUES (NEW.dept_id, NEW.email);
+
+CREATE TRIGGER del_email AFTER DELETE ON employees FOR EACH ROW DELETE FROM dept_email WHERE email=OLD.email;

@@ -1,0 +1,57 @@
+CREATE table employee(Fname varchar(20), Minit varchar(5), Lname varchar(20), Ssn varchar(20), Bdate date, Address varchar(40), Sex varchar(5), Salary int, Super_ssn varchar(20), Dno int, primary key(Ssn));
+
+CREATE table department(Dname varchar(20), Dnumber int, Mgr_ssn varchar(20), Mgr_start_date date, primary key(Dnumber));
+
+CREATE table dept_locations(Dnumber int,Dlocation varchar(20), primary key(Dnumber,Dlocation));
+
+CREATE table works_on(Essn varchar(20), Pno int, Hours decimal, primary key(Essn,Pno));
+
+CREATE table project(Pname varchar(20), Pnumber int, Plocation varchar(20), Dnum int, primary key(Pnumber));
+
+CREATE table dependent(Essn varchar(20),Dependent_name varchar(20),Sex varchar(2),Bdate date,Relationship varchar(20),primary key(Essn,Dependent_name));
+
+
+
+
+
+13 
+
+a. SELECT Dname, count(*) from (department join employee on Dnumber=Dno) group by Dnumber having avg(Salary)>30000;
+
+b.SELECT Fname, Lname from employee WHERE Ssn in (SELECT Essn from works_on w,project p WHERE p.Pname='ProductX' and p.Dnum=5 and p.Pnumber=w.Pno and w.Hours>12);
+
+c.SELECT Fname, Lname from employee e, dependent d WHERE e.Fname=d.Dependent_name;
+
+d. SELECT Fname, Lname from employee WHERE Super_ssn in (Select Ssn from employee WHERE Fname='Franklin' and Lname='Wong'); 
+
+
+5
+
+
+
+
+13
+a. SELECT Dno, count(*) FROM employee group by Dno having AVG(Salary)>30000;
+
+b. SELECT Dno, count(*) FROM employee WHERE Salary>30000 and Sex='M' group by Dno;
+
+
+15
+a. SELECT Fname, Lname from employee WHERE Dno in (SELECT dno from employee WHERE Salary in (SELECT max(Salary) from employee));
+
+b. SELECT Fname, Lname from employee WHERE Super_ssn in (SELECT Ssn from employee WHERE Super_ssn='888665555');
+
+
+16
+
+a. CREATE view MGR_INFO as SELECT Dname,Fname,Lname,Salary from department,employee WHERE Mgr_ssn=Ssn;
+
+c. CREATE view Project_details as SELECT Pname, Dname, sum(hours), count(Pnumber) from project,department,works_on WHERE Dnum=Dnumber and Pnumber=Pno group by Pnumber;
+
+
+
+
+
+
+SELECT * FROM employee WHERE Salary <= (SELECT max(Salary) from employee)-10000;
+
